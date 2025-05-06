@@ -1,3 +1,4 @@
+[![official project](http://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 # SwiftUI Firebase KMP Sample
 
 A sample iOS app using SwiftUI and a Kotlin Multiplatform (KMP) library for Firebase integration (Auth, Firestore, Analytics).
