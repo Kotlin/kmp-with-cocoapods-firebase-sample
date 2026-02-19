@@ -323,19 +323,31 @@ let package = Package(
 )
 ```
 
-## Partial CocoaPods Removal
+## Complete CocoaPods Removal
 
-If some pods remain that are **Swift-only** (no ObjC headers), they cannot be used via Kotlin cinterop in either CocoaPods or SwiftPM mode. These can stay in the Podfile as regular iOS dependencies consumed only from Swift code.
+Swift-only Firebase pods (`FirebaseAILogic`, `FirebaseFunctions`, `FirebaseMLModelDownloader`) that were previously kept in the Podfile can also be migrated to SPM. They are available as SPM products from the same `firebase-ios-sdk` package:
 
-In this project, the following pods remain in the Podfile for the iOS app:
+| CocoaPods pod name | SPM product name |
+|---|---|
+| `FirebaseAILogic` | `FirebaseAI` |
+| `FirebaseFunctions` | `FirebaseFunctions` |
+| `FirebaseMLModelDownloader` | `FirebaseMLModelDownloader` |
 
-```ruby
-pod 'FirebaseAILogic', '12.9.0'
-pod 'FirebaseFunctions', '12.9.0'
-pod 'FirebaseMLModelDownloader', '12.9.0-beta'
-```
+Add these to the `products` list in `swiftPMDependencies`. They don't need `importedModules` entries since they are Swift-only (no ObjC headers for cinterop).
 
-The Kotlin module no longer applies the `kotlin("native.cocoapods")` plugin. The `Podfile` no longer references the Kotlin framework pod. CocoaPods is only used for the Swift-side iOS dependencies.
+To fully deintegrate CocoaPods:
+
+1. Delete `Podfile` and `Podfile.lock`
+2. Delete the `Pods/` directory
+3. Remove the `kotlinCocoapods` plugin alias from `libs.versions.toml`
+4. Remove all CocoaPods references from `project.pbxproj`:
+   - `Pods_iosApp.framework` build file and file reference
+   - `Pods-iosApp.debug.xcconfig` / `Pods-iosApp.release.xcconfig` file references
+   - `Pods` group and `Frameworks` group (if it only contained the Pods framework)
+   - `[CP] Check Pods Manifest.lock` shell script build phase
+   - `[CP] Embed Pods Frameworks` shell script build phase
+   - `baseConfigurationReference` lines pointing to Pods xcconfig files
+5. Remove `Pods/` from `.gitignore`
 
 ## Summary Checklist
 
@@ -350,4 +362,7 @@ The Kotlin module no longer applies the `kotlin("native.cocoapods")` plugin. The
 - [ ] Update all `cocoapods.*` imports to `swiftPMImport.<group>.<module>.*`
 - [ ] Remove `pod 'kotlin_library'` from Podfile
 - [ ] Add linkage package and embed-and-sign build phases to Xcode project
-- [ ] Keep Swift-only pods in Podfile if needed
+- [ ] Add Swift-only pods (`FirebaseAI`, `FirebaseFunctions`, `FirebaseMLModelDownloader`) as SPM products
+- [ ] Delete `Podfile`, `Podfile.lock`, and `Pods/` directory
+- [ ] Remove all CocoaPods references from `project.pbxproj`
+- [ ] Remove `Pods/` from `.gitignore`
