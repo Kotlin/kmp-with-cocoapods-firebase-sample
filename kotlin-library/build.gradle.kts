@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.cocoapods.CocoapodsExtension
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
@@ -8,10 +6,7 @@ plugins {
 group = "org.jetbrains.kotlin.firebase.sample"
 version = "1.0-SNAPSHOT"
 
-val firebaseConfig: CocoapodsExtension.CocoapodsDependency.() -> Unit = {
-    version = "11.12.0"
-    extraOpts += listOf("-compiler-option", "-fmodules")
-}
+val firebaseVersion = libs.versions.firebase.get()
 
 kotlin {
     iosArm64()
@@ -28,11 +23,11 @@ kotlin {
         tvos.deploymentTarget = "16.6"
         watchos.deploymentTarget = "9.6"
 
-        pod("FirebaseCore", firebaseConfig)
-        pod("FirebaseAuth", firebaseConfig)
-        pod("FirebaseFirestore", firebaseConfig)
-        pod("FirebaseFirestoreInternal", firebaseConfig)
-        pod("FirebaseAnalytics", firebaseConfig)
+        pod("FirebaseCore", firebaseVersion)
+        pod("FirebaseAuth", firebaseVersion)
+        pod("FirebaseFirestore", firebaseVersion)
+        pod("FirebaseFirestoreInternal", firebaseVersion)
+        pod("FirebaseAnalytics", firebaseVersion)
 
         framework {
             baseName = "KotlinLibrary"
