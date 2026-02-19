@@ -1,8 +1,8 @@
 package org.jetbrains.kotlin.firebase.sample.services
 
-import cocoapods.FirebaseFirestoreInternal.FIRDocumentReference
-import cocoapods.FirebaseFirestoreInternal.FIRFirestore
-import cocoapods.FirebaseFirestoreInternal.FIRFirestoreSettings
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRDocumentReference
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRFirestore
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRFirestoreSettings
 import org.jetbrains.kotlin.firebase.sample.KMPError
 import org.jetbrains.kotlin.firebase.sample.toKMPError
 

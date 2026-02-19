@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.firebase.sample.services
 
-import cocoapods.FirebaseAuth.FIRAuth
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRAuth
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ObjCObjectVar
 import kotlinx.cinterop.alloc

@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.firebase.sample.samples
 
-import cocoapods.FirebaseInAppMessaging.FIRInAppMessaging
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRInAppMessaging
 
 /**
  * Sample demonstrating Firebase In-App Messaging:

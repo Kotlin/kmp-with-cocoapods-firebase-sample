@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.firebase.sample.services
 
-import cocoapods.FirebaseMessaging.FIRMessaging
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRMessaging
 import org.jetbrains.kotlin.firebase.sample.KMPError
 import org.jetbrains.kotlin.firebase.sample.toKMPError
 

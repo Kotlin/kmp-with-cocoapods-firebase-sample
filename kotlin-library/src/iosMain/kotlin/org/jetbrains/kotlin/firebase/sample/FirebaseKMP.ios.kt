@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.firebase.sample
 
-import cocoapods.FirebaseCore.FIRApp
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRApp
 import org.jetbrains.kotlin.firebase.sample.services.AnalyticsService
 import org.jetbrains.kotlin.firebase.sample.services.AuthService
 import org.jetbrains.kotlin.firebase.sample.services.FirestoreService

@@ -1,8 +1,8 @@
 package org.jetbrains.kotlin.firebase.sample.samples
 
-import cocoapods.FirebaseDatabase.FIRDataEventType
-import cocoapods.FirebaseDatabase.FIRDatabase
-import cocoapods.FirebaseDatabase.FIRDatabaseReference
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRDataEventType
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRDatabase
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRDatabaseReference
 import org.jetbrains.kotlin.firebase.sample.KMPError
 import org.jetbrains.kotlin.firebase.sample.toKMPError
 
