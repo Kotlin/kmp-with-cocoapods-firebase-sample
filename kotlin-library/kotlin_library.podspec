@@ -12,11 +12,22 @@ Pod::Spec.new do |spec|
     spec.osx.deployment_target    = '13.5'
     spec.tvos.deployment_target    = '16.6'
     spec.watchos.deployment_target    = '9.6'
+    spec.dependency 'FirebaseABTesting', '12.9.0'
     spec.dependency 'FirebaseAnalytics', '12.9.0'
+    spec.dependency 'FirebaseAppCheck', '12.9.0'
+    spec.dependency 'FirebaseAppDistribution', '12.9.0-beta'
     spec.dependency 'FirebaseAuth', '12.9.0'
     spec.dependency 'FirebaseCore', '12.9.0'
+    spec.dependency 'FirebaseCrashlytics', '12.9.0'
+    spec.dependency 'FirebaseDatabase', '12.9.0'
     spec.dependency 'FirebaseFirestore', '12.9.0'
     spec.dependency 'FirebaseFirestoreInternal', '12.9.0'
+    spec.dependency 'FirebaseInAppMessaging', '12.9.0-beta'
+    spec.dependency 'FirebaseInstallations', '12.9.0'
+    spec.dependency 'FirebaseMessaging', '12.9.0'
+    spec.dependency 'FirebasePerformance', '12.9.0'
+    spec.dependency 'FirebaseRemoteConfig', '12.9.0'
+    spec.dependency 'FirebaseStorage', '12.9.0'
     if !Dir.exist?('build/cocoapods/framework/KotlinLibrary.framework') || Dir.empty?('build/cocoapods/framework/KotlinLibrary.framework')
         raise "
         Kotlin framework 'KotlinLibrary' doesn't exist yet, so a proper Xcode project can't be generated.

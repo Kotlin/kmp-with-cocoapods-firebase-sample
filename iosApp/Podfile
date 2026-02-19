@@ -7,6 +7,11 @@ target 'iosApp' do
   platform :ios, deployment_target
   # Pods for iosApp
   pod 'kotlin_library', :path => '../kotlin-library'
+
+  # Swift-only Firebase pods (no ObjC headers, cannot be used via Kotlin cinterop)
+  pod 'FirebaseAILogic', '12.9.0'
+  pod 'FirebaseFunctions', '12.9.0'
+  pod 'FirebaseMLModelDownloader', '12.9.0-beta'
 end
 
 post_install do |installer|

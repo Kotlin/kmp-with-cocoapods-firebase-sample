@@ -38,6 +38,8 @@ internal class MockFirebaseKMPImpl : MockFirebaseKMP {
         _userProperties.clear()
         _currentAnalyticsUserId = null
         configureCalled = false
+        _mockToken = "mock-fcm-token-abc123"
+        _subscribedTopics.clear()
         println("MockFirebaseKMP: Reset to default state.")
     }
 
@@ -163,5 +165,50 @@ internal class MockFirebaseKMPImpl : MockFirebaseKMP {
     override fun getCurrentUser(): FirebaseUser? {
         println("MockFirebaseKMP: getCurrentUser() called, returning ${signedInUserOverride?.uid ?: "null"}.")
         return signedInUserOverride
+    }
+
+    // --- Firebase Messaging ---
+
+    private var _mockToken: String = "mock-fcm-token-abc123"
+    private val _subscribedTopics = mutableSetOf<String>()
+    val subscribedTopics: Set<String> get() = _subscribedTopics
+
+    override fun getMessagingToken(completion: (String?, KMPError?) -> Unit) {
+        println("MockFirebaseKMP: getMessagingToken() called.")
+        if (simulateError != null) {
+            completion(null, simulateError)
+            return
+        }
+        completion(_mockToken, null)
+    }
+
+    override fun subscribeToTopic(topic: String, completion: (KMPError?) -> Unit) {
+        println("MockFirebaseKMP: subscribeToTopic(topic: $topic) called.")
+        if (simulateError != null) {
+            completion(simulateError)
+            return
+        }
+        _subscribedTopics.add(topic)
+        completion(null)
+    }
+
+    override fun unsubscribeFromTopic(topic: String, completion: (KMPError?) -> Unit) {
+        println("MockFirebaseKMP: unsubscribeFromTopic(topic: $topic) called.")
+        if (simulateError != null) {
+            completion(simulateError)
+            return
+        }
+        _subscribedTopics.remove(topic)
+        completion(null)
+    }
+
+    override fun deleteMessagingToken(completion: (KMPError?) -> Unit) {
+        println("MockFirebaseKMP: deleteMessagingToken() called.")
+        if (simulateError != null) {
+            completion(simulateError)
+            return
+        }
+        _mockToken = ""
+        completion(null)
     }
 }

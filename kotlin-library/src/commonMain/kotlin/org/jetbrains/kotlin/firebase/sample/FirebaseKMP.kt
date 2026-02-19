@@ -95,4 +95,32 @@ interface FirebaseKMP {
      * @return FirebaseUser object or null if not signed in
      */
     fun getCurrentUser(): FirebaseUser?
+
+    // --- Firebase Messaging ---
+
+    /**
+     * Get the current FCM registration token
+     * @param completion Callback with token string or error
+     */
+    fun getMessagingToken(completion: (String?, KMPError?) -> Unit)
+
+    /**
+     * Subscribe to a messaging topic
+     * @param topic Topic name to subscribe to
+     * @param completion Callback with error if any
+     */
+    fun subscribeToTopic(topic: String, completion: (KMPError?) -> Unit)
+
+    /**
+     * Unsubscribe from a messaging topic
+     * @param topic Topic name to unsubscribe from
+     * @param completion Callback with error if any
+     */
+    fun unsubscribeFromTopic(topic: String, completion: (KMPError?) -> Unit)
+
+    /**
+     * Delete the current FCM token, effectively unregistering the device
+     * @param completion Callback with error if any
+     */
+    fun deleteMessagingToken(completion: (KMPError?) -> Unit)
 }

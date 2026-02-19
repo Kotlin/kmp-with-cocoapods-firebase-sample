@@ -23,11 +23,22 @@ kotlin {
         tvos.deploymentTarget = "16.6"
         watchos.deploymentTarget = "9.6"
 
-        pod("FirebaseCore", firebaseVersion)
+        pod("FirebaseABTesting", firebaseVersion)
+        pod("FirebaseAnalytics", firebaseVersion)
+        pod("FirebaseAppCheck", firebaseVersion)
+        pod("FirebaseAppDistribution", "$firebaseVersion-beta")
         pod("FirebaseAuth", firebaseVersion)
+        pod("FirebaseCore", firebaseVersion)
+        pod("FirebaseCrashlytics", firebaseVersion)
+        pod("FirebaseDatabase", firebaseVersion)
         pod("FirebaseFirestore", firebaseVersion)
         pod("FirebaseFirestoreInternal", firebaseVersion)
-        pod("FirebaseAnalytics", firebaseVersion)
+        pod("FirebaseInAppMessaging", "$firebaseVersion-beta")
+        pod("FirebaseInstallations", firebaseVersion)
+        pod("FirebaseMessaging", firebaseVersion)
+        pod("FirebasePerformance", firebaseVersion)
+        pod("FirebaseRemoteConfig", firebaseVersion)
+        pod("FirebaseStorage", firebaseVersion)
 
         framework {
             baseName = "KotlinLibrary"

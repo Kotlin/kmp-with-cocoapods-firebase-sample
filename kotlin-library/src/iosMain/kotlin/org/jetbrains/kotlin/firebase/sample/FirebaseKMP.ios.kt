@@ -1,148 +1,71 @@
 package org.jetbrains.kotlin.firebase.sample
 
-import cocoapods.FirebaseAnalytics.FIRAnalytics
-import cocoapods.FirebaseAuth.FIRAuth
-import cocoapods.FirebaseAuth.FIRUser
 import cocoapods.FirebaseCore.FIRApp
-import cocoapods.FirebaseFirestoreInternal.FIRDocumentReference
-import cocoapods.FirebaseFirestoreInternal.FIRFirestore
-import cocoapods.FirebaseFirestoreInternal.FIRFirestoreSettings
-import platform.Foundation.NSError
-import kotlinx.cinterop.*
+import org.jetbrains.kotlin.firebase.sample.services.AnalyticsService
+import org.jetbrains.kotlin.firebase.sample.services.AuthService
+import org.jetbrains.kotlin.firebase.sample.services.FirestoreService
+import org.jetbrains.kotlin.firebase.sample.services.MessagingService
 
 /**
- * Internal implementation of FirebaseKMP interface
+ * Internal implementation of FirebaseKMP interface.
+ * Delegates to per-service classes for each Firebase product.
  */
-@Suppress("UNCHECKED_CAST")
 internal class FirebaseKMPImpl : FirebaseKMP {
 
-    // Convenience getter for the Firebase Auth instance
-    private val firebaseAuth: FIRAuth
-        get() = FIRAuth.auth()
+    private val auth = AuthService()
+    private val firestoreService = FirestoreService()
+    private val analytics = AnalyticsService()
+    private val messagingService = MessagingService()
 
-    // Convenience getter for the Firestore instance
-    private val firestore: FIRFirestore
-        get() = FIRFirestore.firestore()
+    // --- Core ---
 
     override fun configure() {
-        // Initialize Firebase
         FIRApp.configure()
-
-        // Optional: Set Firebase Analytics collection enabled
-        FIRAnalytics.setAnalyticsCollectionEnabled(true)
-
-        // Optional: Enable Firestore offline persistence
-        val settings = FIRFirestoreSettings()
-        settings.setPersistenceEnabled(true)
-        FIRFirestore.firestore().setSettings(settings)
+        analytics.enableCollection()
+        firestoreService.enableOfflinePersistence()
     }
 
-    override fun isUserSignedIn(): Boolean {
-        return firebaseAuth.currentUser() != null
-    }
+    // --- Auth ---
 
-    override fun signIn(email: String, password: String, completion: (FirebaseUser?, KMPError?) -> Unit) {
-        firebaseAuth.signInWithEmail(email, password = password) { authResult, error ->
-            if (error != null) {
-                completion(null, error.toKMPError())
-            } else {
-                completion(authResult?.user()?.toKMPUser(), null)
-            }
-        }
-    }
+    override fun isUserSignedIn(): Boolean = auth.isUserSignedIn()
 
-    override fun signUp(email: String, password: String, completion: (FirebaseUser?, KMPError?) -> Unit) {
-        firebaseAuth.createUserWithEmail(email, password) { authResult, error ->
-            if (error != null) {
-                completion(null, error.toKMPError())
-            } else {
-                completion(authResult?.user()?.toKMPUser(), null)
-            }
-        }
-    }
+    override fun signIn(email: String, password: String, completion: (FirebaseUser?, KMPError?) -> Unit) =
+        auth.signIn(email, password, completion)
 
-    @OptIn(BetaInteropApi::class)
-    override fun signOut(): Boolean {
-        return memScoped {
-            val errorPtr = alloc<ObjCObjectVar<NSError?>>().ptr
-            val status = FIRAuth.auth().signOut(errorPtr)
+    override fun signUp(email: String, password: String, completion: (FirebaseUser?, KMPError?) -> Unit) =
+        auth.signUp(email, password, completion)
 
-            if (!status) {
-                val error = errorPtr.pointed.value
-                println("Error signing out: ${error?.localizedDescription}")
-            }
+    override fun signOut(): Boolean = auth.signOut()
 
-            status
-        }
-    }
+    override fun getCurrentUser(): FirebaseUser? = auth.getCurrentUser()
 
-    override fun saveUser(userId: String, userData: Map<String, Any>, completion: (KMPError?) -> Unit) {
-        // Convert KMP Map<String, Any> to a type suitable for Firestore if needed.
-        // Firestore typically handles standard Swift/Obj-C dictionary types well.
-        val userDocument: FIRDocumentReference = firestore
-            .collectionWithPath("users")
-            .documentWithPath(userId)
+    // --- Firestore ---
 
-        // Use a mutable map to ensure compatibility with Firestore's setData method,
-        // which expects a dictionary that can be bridged to NSDictionary.
-        val mutableUserData = userData.toMutableMap()
+    override fun saveUser(userId: String, userData: Map<String, Any>, completion: (KMPError?) -> Unit) =
+        firestoreService.saveUser(userId, userData, completion)
 
-        userDocument.setData(mutableUserData as Map<Any?, *>, true) { error ->
-            completion(error?.toKMPError())
-        }
-    }
+    override fun getUser(userId: String, completion: (Map<String, Any>?, KMPError?) -> Unit) =
+        firestoreService.getUser(userId, completion)
 
-    override fun getUser(userId: String, completion: (Map<String, Any>?, KMPError?) -> Unit) {
-        val userDocument: FIRDocumentReference = firestore
-            .collectionWithPath("users")
-            .documentWithPath(userId)
+    // --- Analytics ---
 
-        // Fetch the document from Firestore
-        userDocument.getDocumentWithCompletion { snapshot, error ->
-            if (error != null) {
-                completion(null, error.toKMPError())
-            } else if (snapshot?.exists() == true) {
-                // Convert Firestore data (NSDictionary) to Swift's [String: Any]
-                // then to KMP's Map<String, Any>
-                val data = snapshot.data() as? Map<String, Any>
-                completion(data, null)
-            } else {
-                // Document does not exist
-                completion(null, null) // Or a custom "not found" error
-            }
-        }
-    }
+    override fun logEvent(name: String, parameters: Map<String, Any>?) = analytics.logEvent(name, parameters)
 
-    override fun logEvent(name: String, parameters: Map<String, Any>?) {
-        // Convert KMP Map<String, Any>? to Swift's [String: Any]?
-        // FIRAnalytics.logEventWithName expects [String: Any]?
-        val swiftParameters = parameters?.let { it as? Map<Any?, *> }
-        FIRAnalytics.logEventWithName(name, swiftParameters)
-    }
+    override fun setUserProperty(name: String, value: String) = analytics.setUserProperty(name, value)
 
-    override fun setUserProperty(name: String, value: String) {
-        FIRAnalytics.setUserPropertyString(value, name)
-    }
+    override fun setUserId(userId: String) = analytics.setUserId(userId)
 
-    override fun setUserId(userId: String) {
-        FIRAnalytics.setUserID(userId)
-    }
+    // --- Messaging ---
 
-    override fun getCurrentUser(): FirebaseUser? {
-        return firebaseAuth.currentUser()?.toKMPUser()
-    }
-}
+    override fun getMessagingToken(completion: (String?, KMPError?) -> Unit) =
+        messagingService.getToken(completion)
 
-// --- Helper extension function to convert native FIRUser to KMP FirebaseUser ---
-private fun FIRUser.toKMPUser(): FirebaseUser {
-    return FirebaseUser(
-        uid = this.uid(),
-        email = this.email() ?: "", // KMP FirebaseUser expects non-null email
-        displayName = this.displayName(),
-        photoURL = this.photoURL()?.absoluteString
-    )
-}
+    override fun subscribeToTopic(topic: String, completion: (KMPError?) -> Unit) =
+        messagingService.subscribeToTopic(topic, completion)
 
-private fun NSError.toKMPError(): KMPError {
-    return KMPError(this)
+    override fun unsubscribeFromTopic(topic: String, completion: (KMPError?) -> Unit) =
+        messagingService.unsubscribeFromTopic(topic, completion)
+
+    override fun deleteMessagingToken(completion: (KMPError?) -> Unit) =
+        messagingService.deleteToken(completion)
 }
