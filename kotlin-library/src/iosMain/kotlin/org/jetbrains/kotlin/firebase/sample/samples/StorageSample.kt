@@ -1,7 +1,7 @@
 package org.jetbrains.kotlin.firebase.sample.samples
 
-import cocoapods.FirebaseStorage.FIRStorage
-import cocoapods.FirebaseStorage.FIRStorageMetadata
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRStorage
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRStorageMetadata
 import org.jetbrains.kotlin.firebase.sample.KMPError
 import org.jetbrains.kotlin.firebase.sample.toKMPError
 import platform.Foundation.NSData
@@ -96,7 +96,7 @@ object StorageSample {
                 completion(emptyList(), error.toKMPError())
             } else {
                 val items = result?.items()?.mapNotNull { item ->
-                    (item as? cocoapods.FirebaseStorage.FIRStorageReference)?.fullPath()
+                    (item as? swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRStorageReference)?.fullPath()
                 } ?: emptyList()
                 completion(items, null)
             }

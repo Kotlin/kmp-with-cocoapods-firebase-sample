@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.firebase.sample.samples
 
-import cocoapods.FirebaseInstallations.FIRInstallations
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRInstallations
 import org.jetbrains.kotlin.firebase.sample.KMPError
 import org.jetbrains.kotlin.firebase.sample.toKMPError
 

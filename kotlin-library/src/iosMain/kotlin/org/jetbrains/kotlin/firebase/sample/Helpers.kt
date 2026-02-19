@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.firebase.sample
 
-import cocoapods.FirebaseAuth.FIRUser
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRUser
 import platform.Foundation.NSError
 
 internal fun FIRUser.toKMPUser(): FirebaseUser {

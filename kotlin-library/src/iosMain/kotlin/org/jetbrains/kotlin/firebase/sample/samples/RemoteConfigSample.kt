@@ -1,7 +1,7 @@
 package org.jetbrains.kotlin.firebase.sample.samples
 
-import cocoapods.FirebaseRemoteConfig.FIRRemoteConfig
-import cocoapods.FirebaseRemoteConfig.FIRRemoteConfigSettings
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRRemoteConfig
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRRemoteConfigSettings
 import org.jetbrains.kotlin.firebase.sample.KMPError
 import org.jetbrains.kotlin.firebase.sample.toKMPError
 

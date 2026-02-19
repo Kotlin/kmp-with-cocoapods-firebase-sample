@@ -1,8 +1,8 @@
 package org.jetbrains.kotlin.firebase.sample.samples
 
-import cocoapods.FirebaseCrashlytics.FIRCrashlytics
-import cocoapods.FirebaseCrashlytics.FIRExceptionModel
-import cocoapods.FirebaseCrashlytics.FIRStackFrame
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRCrashlytics
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRExceptionModel
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRStackFrame
 import platform.Foundation.NSError
 import platform.Foundation.NSNumber
 

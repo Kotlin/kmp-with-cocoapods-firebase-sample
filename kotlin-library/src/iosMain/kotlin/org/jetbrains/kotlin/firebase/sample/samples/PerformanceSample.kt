@@ -1,9 +1,9 @@
 package org.jetbrains.kotlin.firebase.sample.samples
 
-import cocoapods.FirebasePerformance.FIRHTTPMethod
-import cocoapods.FirebasePerformance.FIRHTTPMetric
-import cocoapods.FirebasePerformance.FIRPerformance
-import cocoapods.FirebasePerformance.FIRTrace
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRHTTPMethod
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRHTTPMetric
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRPerformance
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRTrace
 import platform.Foundation.NSURL
 
 /**

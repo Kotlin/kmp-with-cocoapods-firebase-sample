@@ -1,7 +1,7 @@
 package org.jetbrains.kotlin.firebase.sample.samples
 
-import cocoapods.FirebaseAppCheck.FIRAppCheck
-import cocoapods.FirebaseAppCheck.FIRAppCheckDebugProviderFactory
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRAppCheck
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRAppCheckDebugProviderFactory
 import org.jetbrains.kotlin.firebase.sample.KMPError
 import org.jetbrains.kotlin.firebase.sample.toKMPError
 

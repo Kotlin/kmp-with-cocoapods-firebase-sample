@@ -1,6 +1,6 @@
 package org.jetbrains.kotlin.firebase.sample.services
 
-import cocoapods.FirebaseAnalytics.FIRAnalytics
+import swiftPMImport.org.jetbrains.kotlin.firebase.sample.kotlin.library.FIRAnalytics
 
 internal class AnalyticsService {
 
