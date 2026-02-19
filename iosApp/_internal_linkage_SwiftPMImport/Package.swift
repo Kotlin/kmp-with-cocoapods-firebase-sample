@@ -23,6 +23,10 @@ let package = Package(
       name: "_internal_linkage_SwiftPMImport",
       dependencies: [
         .product(
+          name: "FirebaseAI",
+          package: "firebase-ios-sdk",
+        ),
+        .product(
           name: "FirebaseAnalytics",
           package: "firebase-ios-sdk",
         ),
@@ -55,6 +59,10 @@ let package = Package(
           package: "firebase-ios-sdk",
         ),
         .product(
+          name: "FirebaseFunctions",
+          package: "firebase-ios-sdk",
+        ),
+        .product(
           name: "FirebaseInAppMessaging-Beta",
           package: "firebase-ios-sdk",
         ),
@@ -64,6 +72,10 @@ let package = Package(
         ),
         .product(
           name: "FirebaseMessaging",
+          package: "firebase-ios-sdk",
+        ),
+        .product(
+          name: "FirebaseMLModelDownloader",
           package: "firebase-ios-sdk",
         ),
         .product(
