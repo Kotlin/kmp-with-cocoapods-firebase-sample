@@ -1,3 +1,7 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
 }
@@ -19,10 +23,10 @@ kotlin {
     }
 
     swiftPMDependencies {
-        iosDeploymentVersion.set("16.6")
-        discoverModulesImplicitly = false
+        iosMinimumDeploymentTarget = "16.6"
+        discoverClangModulesImplicitly = false
 
-        `package`(
+        swiftPackage(
             url = url("https://github.com/firebase/firebase-ios-sdk.git"),
             version = from(firebaseVersion),
             products = listOf(
@@ -44,7 +48,7 @@ kotlin {
                 product("FirebaseRemoteConfig"),
                 product("FirebaseStorage"),
             ),
-            importedModules = listOf(
+            importedClangModules = listOf(
                 "FirebaseABTesting",
                 "FirebaseAnalytics",
                 "FirebaseAppCheck",

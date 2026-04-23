@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8BBAD1A1641A6801F84B9C41 /* _internal_linkage_SwiftPMImport in Frameworks */ = {isa = PBXBuildFile; productRef = D4A2164DADB8A4E141205F1E /* _internal_linkage_SwiftPMImport */; };
+		BDC3DBC42F9A553900DFF8ED /* KotlinMultiplatformLinkedPackage in Frameworks */ = {isa = PBXBuildFile; productRef = BDC3DBC32F9A553900DFF8ED /* KotlinMultiplatformLinkedPackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BBAD1A1641A6801F84B9C41 /* _internal_linkage_SwiftPMImport in Frameworks */,
+				BDC3DBC42F9A553900DFF8ED /* KotlinMultiplatformLinkedPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +71,7 @@
 			);
 			name = iosApp;
 			packageProductDependencies = (
-				D4A2164DADB8A4E141205F1E /* _internal_linkage_SwiftPMImport */,
+				BDC3DBC32F9A553900DFF8ED /* KotlinMultiplatformLinkedPackage */,
 			);
 			productName = iosApp;
 			productReference = BD4CB9052DCA33DB0066A432 /* iosApp.app */;
@@ -102,7 +102,7 @@
 			mainGroup = BD4CB8FC2DCA33DB0066A432;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				0C599765EAE127945F9A504D /* XCLocalSwiftPackageReference "_internal_linkage_SwiftPMImport" */,
+				BDC3DBC22F9A553900DFF8ED /* XCLocalSwiftPackageReference "KotlinMultiplatformLinkedPackage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BD4CB9062DCA33DB0066A432 /* Products */;
@@ -362,16 +362,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		0C599765EAE127945F9A504D /* XCLocalSwiftPackageReference "_internal_linkage_SwiftPMImport" */ = {
+		BDC3DBC22F9A553900DFF8ED /* XCLocalSwiftPackageReference "KotlinMultiplatformLinkedPackage" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = _internal_linkage_SwiftPMImport;
+			relativePath = KotlinMultiplatformLinkedPackage;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D4A2164DADB8A4E141205F1E /* _internal_linkage_SwiftPMImport */ = {
+		BDC3DBC32F9A553900DFF8ED /* KotlinMultiplatformLinkedPackage */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = _internal_linkage_SwiftPMImport;
+			productName = KotlinMultiplatformLinkedPackage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
